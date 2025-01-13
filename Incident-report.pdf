@@ -1,0 +1,70 @@
+Informe de gestión de incidentes conforme a la norma ISO 27001
+
+Vulnerabilidad de inyección SQL
+
+*Introducción
+Este informe detalla la identificación y explotación de una vulnerabilidad de inyección SQL en la aplicación web Damn
+Vulnerable (DVWA). La prueba se realizó en un entorno controlado para demostrar una vulnerabilidad común y su impacto
+potencial en la seguridad de la aplicación.
+
+
+*Descripción del incidente
+Durante la evaluación de seguridad de DVWA, se descubrió una vulnerabilidad de inyección SQL en el módulo "Inyección SQL".
+Esta vulnerabilidad permite a un atacante inyectar consultas SQL maliciosas a través de los campos de entrada de la
+aplicación web, lo que compromete la integridad y confidencialidad de los datos almacenados en la base de datos.
+
+
+*Proceso de Reproducción
+Para replicar y demostrar la vulnerabilidad, se utilizó la siguiente carga útil SQL en el campo "User ID":
+SQL;
+    1' OR '1'='1
+1-Esta inyección hace que la consulta siempre sea verdadera, permitiendo al atacante eludir la autenticación y 
+acceder sin credenciales válidas.
+2-La comilla simple (') cierra la cadena de entrada esperada en la consulta SQL original.
+3-El OR introduce un acondicion adicional.
+4-('1'='1) es una condicion que siempre es verdadera, ya que 1 siempre es igual a 1. 
+
+Al implementar este comando de inyección se visualiza lo siguiente:
+ID: 1' OR '1'='1
+First name: admin
+Surname: admin
+
+ID: 1' OR '1'='1
+First name: Gordon
+Surname: Brown
+
+ID: 1' OR '1'='1
+First name: Hack
+Surname: Me
+
+ID: 1' OR '1'='1
+First name: Pablo
+Surname: Picasso
+
+ID: 1' OR '1'='1
+First name: Bob
+Surname: Smith
+
+
+*Impacto del incidente
+La explotación de esta vulnerabilidad podría permitir a un atacante:
+1.Expocisión de datos sensibles: Los atacantes pueden acceder y extraer información confidencial.
+2.Compromiso de la integridad de datos.
+3.Daños a la Reputación.
+4. Consecuencias Legales.
+
+
+*Recomendaciones
+1-Implementar validación de entrada.
+2-Implementar WAF (Web Aplication Firewall), puede detectar y bloquear patrones de ataques conocidos.
+3-Implementar ORM (Object-Relational Mapping); estas herramientas pueden ayudar a prevenir inyecciones SQL al manejar 
+las consultas de manera segura.
+4-Mantener el software actualizado, Asegurarse que todos los componentes del sistema lo están.
+5-Educar a los desarrolladores sobre las mejores prácticas de seguridad en el desarrollo de aplicaciones.
+
+Conclusion
+Para proteger la Integridad, Confidencialidad y Disponibilidad de los datos de una empresa, hay que tener en cuenta
+la seguridad de estos. Es muy importante revisar cada uno de los anteriores puntos. Mantener un sistema actualizado y 
+crear una prevención de riesgo a estos ataques puede ayudar a prevenir malas situaciones. El ataque anteriormente realizado 
+es bastante conocido, por lo que deberian de haber ya muchas maneras de protegerse de el. 
+
